@@ -2962,13 +2962,14 @@ Arguments are either of the two:
 
 (circe-set-display-handler "333" 'circe-display-333)
 (defun circe-display-333 (_server _ignored _numeric target
-                                  channel setter topic-time)
+                                  channel setter &optional topic-time)
   "Show a 333 numeric (RPL_TOPICWHOTIME).
 
 Arguments are either of the two:
 
 :<server> 333 <target> <channel> <nick> 1434996762
 :<server> 333 <target> <channel> <nick>!<user>@<host> 1434996803"
+  (or topic-time (setq topic-time "0"))
   (let ((channel-buffer (circe-server-get-chat-buffer channel))
         (topic-time (string-to-number topic-time)))
     (with-current-buffer (or channel-buffer
